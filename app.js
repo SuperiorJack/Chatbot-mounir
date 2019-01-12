@@ -205,7 +205,7 @@ function handleEcho(messageId, appId, metadata) {
 function handleDialogFlowAction(sender, action, messages, contexts, parameters) {
     console.log("--------------- ACTION ---------------", action)
     switch (action) {
-        case "quickReplies":
+        case "show-video":
             sendVideoMessage(sender, "/assets/allofus480.mov");
         default:
             //unhandled action, just send back the text
