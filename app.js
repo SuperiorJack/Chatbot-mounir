@@ -208,7 +208,9 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
         case "show-video":
             sendVideoMessage(sender, "/assets/allofus480.mov");
         case "reservation.reservation-yes.reservation-yes-custom":
-            console.log("--------------- CONTEXTS ---------------", contexts, "--------------- PARAMETERS ---------------", parameters)
+            console.log("--------------- CONTEXTS ---------------", contexts.parameters.fields, "--------------- PARAMETERS ---------------", parameters)
+            console.log("--------------- CONTEXTS ---------------", contexts.parameters.fields[0])
+            console.log("--------------- CONTEXTS ---------------", JSON.stringify(contexts.parameters.fields[0]))
             handleMessages(messages, sender);
         default:
             //unhandled action, just send back the text
