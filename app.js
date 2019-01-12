@@ -1,7 +1,7 @@
 'use strict';
 
 const dialogflow = require('dialogflow');
-const config = require('./config.js');
+const config = require('./config');
 const express = require('express');
 const crypto = require('crypto');
 const bodyParser = require('body-parser');
