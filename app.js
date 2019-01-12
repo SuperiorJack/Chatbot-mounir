@@ -1,7 +1,7 @@
 'use strict';
 
 const dialogflow = require('dialogflow');
-const config = require('./config');
+const config = require('./config.js');
 const express = require('express');
 const crypto = require('crypto');
 const bodyParser = require('body-parser');
@@ -184,7 +184,7 @@ function receivedMessage(event) {
 }
 
 
-function handleMessageAttachments(messageAttachments, senderID){
+function handleMessageAttachments(messageAttachments, senderID) {
     //for now just reply
     sendTextMessage(senderID, "Attachment received. Thank you.");
 }
@@ -223,11 +223,11 @@ function handleMessage(message, sender) {
             let replies = [];
             message.quickReplies.quickReplies.forEach((text) => {
                 let reply =
-                    {
-                        "content_type": "text",
-                        "title": text,
-                        "payload": text
-                    }
+                {
+                    "content_type": "text",
+                    "title": text,
+                    "payload": text
+                }
                 replies.push(reply);
             });
             sendQuickReply(sender, message.quickReplies.title, replies);
@@ -267,7 +267,7 @@ function handleCardMessages(messages, sender) {
 
         let element = {
             "title": message.card.title,
-            "image_url":message.card.imageUri,
+            "image_url": message.card.imageUri,
             "subtitle": message.card.subtitle,
             "buttons": buttons
         };
@@ -279,25 +279,25 @@ function handleCardMessages(messages, sender) {
 
 function handleMessages(messages, sender) {
     let timeoutInterval = 1100;
-    let previousType ;
+    let previousType;
     let cardTypes = [];
     let timeout = 0;
     for (var i = 0; i < messages.length; i++) {
 
-        if ( previousType == "card" && (messages[i].message != "card" || i == messages.length - 1)) {
+        if (previousType == "card" && (messages[i].message != "card" || i == messages.length - 1)) {
             timeout = (i - 1) * timeoutInterval;
             setTimeout(handleCardMessages.bind(null, cardTypes, sender), timeout);
             cardTypes = [];
             timeout = i * timeoutInterval;
             setTimeout(handleMessage.bind(null, messages[i], sender), timeout);
-        } else if ( messages[i].message == "card" && i == messages.length - 1) {
+        } else if (messages[i].message == "card" && i == messages.length - 1) {
             cardTypes.push(messages[i]);
             timeout = (i - 1) * timeoutInterval;
             setTimeout(handleCardMessages.bind(null, cardTypes, sender), timeout);
             cardTypes = [];
-        } else if ( messages[i].message == "card") {
+        } else if (messages[i].message == "card") {
             cardTypes.push(messages[i]);
-        } else  {
+        } else {
 
             timeout = i * timeoutInterval;
             setTimeout(handleMessage.bind(null, messages[i], sender), timeout);
@@ -538,7 +538,7 @@ function sendGenericMessage(recipientId, elements) {
 
 
 function sendReceiptMessage(recipientId, recipient_name, currency, payment_method,
-                            timestamp, elements, address, summary, adjustments) {
+    timestamp, elements, address, summary, adjustments) {
     // Generate a random receipt ID as the API requires a unique ID
     var receiptId = "order" + Math.floor(Math.random() * 1000);
 
@@ -579,7 +579,7 @@ function sendQuickReply(recipientId, text, replies, metadata) {
         },
         message: {
             text: text,
-            metadata: isDefined(metadata)?metadata:'',
+            metadata: isDefined(metadata) ? metadata : '',
             quick_replies: replies
         }
     };
