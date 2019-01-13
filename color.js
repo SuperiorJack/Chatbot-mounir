@@ -13,7 +13,7 @@ module.exports = {
             }
             client
                 .query(
-                    'SELECT color FROM public.user_color WHERE fb_id=$1',
+                    'SELECT color FROM public.color WHERE fb_id=$1',
                     [userId],
                     function (err, result) {
                         if (err) {
