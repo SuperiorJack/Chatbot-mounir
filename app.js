@@ -864,7 +864,7 @@ function isDefined(obj) {
 
 function startMessage(senderID) {
     let user = usersMap.get(senderID)
-    sendTypingOn(sender);
+    sendTypingOn(senderID);
     setTimeout(function () {
         if (isDefined(user)) {
             sendTextMessage(senderID, "Bonjour " + user.first_name + "! Que puis-je faire pour toi?");
