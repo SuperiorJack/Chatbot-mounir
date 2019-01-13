@@ -877,6 +877,15 @@ function isDefined(obj) {
 }
 
 function startMessage(senderID) {
+    user = getUserInfo(senderID);
+    if (user.first_name) {
+        sendTextMessage(senderID, "Bonjour " + user.first_name + "! Que puis-je faire pour toi?");
+    } else {
+        sendTextMessage(senderID, "Bienvenue! Que puis-je faire pour vous?");
+    }
+}
+
+async function getUserInfo(senderID) {
     request({
         uri: 'https://graph.facebook.com/v3.2/' + senderID,
         qs: {
@@ -885,16 +894,11 @@ function startMessage(senderID) {
 
     }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log("--------------- BODY ---------------", body, body.first_name)
             var user = JSON.parse(body);
-            console.log("--------------- USER ---------------", user, user.first_name)
-            if (user.first_name) {
-                sendTextMessage(senderID, "Bonjour " + user.first_name + "! Que puis-je faire pour toi?");
-            } else {
-                sendTextMessage(senderID, "Bienvenue! Que puis-je faire pour vous?");
-            }
+            return user;
         } else {
             console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
+            return error;
         }
     });
 }
@@ -903,3 +907,12 @@ function startMessage(senderID) {
 app.listen(app.get('port'), function () {
     console.log('running on port', app.get('port'))
 })
+
+
+/*
+    curl -X POST -H "Content-Type: application/json" -d '{ 
+        "get_started":{
+        "payload":"START"
+        }
+    }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAARQjccneVkBAIKjDLHqhTV46OnsJrlxEwzRQh3j6PVo6AIzj5MZBIqpc6cZAW31N9zrqzyAu7aZAMoHz44ZCIIJnjQ0ZC7LMLyT6bUbdZBSYrnSpWgggKlRgjOvziJPJa5Jnlz6ZATZCZCV8ZAlSzDYuzx90Q2MlprZADasuZBwEjOMjf33IY2aLIblpP24jqfA9WUZD"
+*/
