@@ -877,7 +877,11 @@ function isDefined(obj) {
 }
 
 async function startMessage(senderID) {
-    var user = await getUserInfo(senderID);
+    try {
+        var user = await getUserInfo(senderID);
+    } catch (e) {
+        console.log("Get user error!", e)
+    }
     console.log("--------------- USER ---------------", user)
     if (user.first_name) {
         sendTextMessage(senderID, "Bonjour " + user.first_name + "! Que puis-je faire pour toi?");
