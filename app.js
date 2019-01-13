@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 
-
+app.set("view engine", "ejs")
 
 
 
@@ -55,7 +55,8 @@ const usersMap = new Map();
 
 // Index route
 app.get('/', function (req, res) {
-    res.send('Hello world, I am a chat bot')
+    //res.send('Hello world, I am a chat bot')
+    res.render("index")
 })
 
 // for Facebook verification
