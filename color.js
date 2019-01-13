@@ -44,9 +44,9 @@ module.exports = {
                         } else {
                             let sql;
                             if (result.rows.length === 0) {
-                                sql = 'INSERT INTO public.user_color (color, fb_id) VALUES ($1, $2)';
+                                sql = 'INSERT INTO public.color (color, fb_id) VALUES ($1, $2)';
                             } else {
-                                sql = 'UPDATE public.user_color SET color=$1 WHERE fb_id=$2';
+                                sql = 'UPDATE public.color SET color=$1 WHERE fb_id=$2';
                             }
                             client.query(sql,
                                 [

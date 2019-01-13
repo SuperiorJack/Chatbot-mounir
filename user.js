@@ -45,6 +45,7 @@ module.exports = function (callback, senderID) {
                             }
                         });
                     callback(user)
+                    done();
                 });
                 pool.end();
             }
