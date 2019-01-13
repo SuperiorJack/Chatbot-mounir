@@ -877,7 +877,7 @@ function isDefined(obj) {
 }
 
 function startMessage(senderID) {
-    user = getUserInfo(senderID);
+    var user = getUserInfo(senderID);
     if (user.first_name) {
         sendTextMessage(senderID, "Bonjour " + user.first_name + "! Que puis-je faire pour toi?");
     } else {
