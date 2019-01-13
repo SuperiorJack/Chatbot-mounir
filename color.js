@@ -4,7 +4,6 @@ const pg = require('pg');
 pg.defaults.ssl = true;
 
 module.exports = {
-
     readUserColor: function (callback, userId) {
         var pool = new pg.Pool(config.PG_CONFIG);
         pool.connect(function (err, client, done) {
@@ -12,18 +11,17 @@ module.exports = {
                 return console.error('Error acquiring client', err.stack);
             }
             client
-                .query(
-                    'SELECT color FROM colors WHERE fb_id=$1',
+                .query('SELECT color FROM colors WHERE fb_id=$1',
                     [userId],
                     function (err, result) {
                         if (err) {
                             console.log(err);
                             callback('');
                         } else {
+                            console.log("--------------- RESULT ---------------", result)
                             callback(result.rows[0]['color']);
                         };
                     });
-            done();
         });
         pool.end();
     },
@@ -57,6 +55,4 @@ module.exports = {
         });
         pool.end();
     }
-
-
 }

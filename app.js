@@ -189,13 +189,23 @@ function handleEcho(messageId, appId, metadata) {
 function handleDialogFlowAction(sender, action, messages, contexts, parameters) {
     console.log("--------------- ACTION ---------------", action);
     switch (action) {
-        case "favorite-color":
+        case "set-favorite-color":
             handleMessages(messages, sender);
             console.log("--------------- PARAMETERS ---------------", parameters);
             if (parameters.fields.color.stringValue != "") {
                 console.log("--------------- UPDATED COLOR ---------------", parameters.fields.color.stringValue)
                 colors.updateUserColor(parameters.fields.color.stringValue, sender);
             }
+            break;
+        case "my-favorite-color":
+            colors.readUserColor(function (color) {
+                if (color != undefined || color != "") {
+                    var text = "Ta couleur prefere est le " + color + "."
+                } else {
+                    var text = "Je ne connais pas ta couleur prefere."
+                }
+                sendTextMessage(sender, text);
+            }, sender)
             break;
         case "show-video":
             handleMessages(messages, sender);
