@@ -864,7 +864,7 @@ function isDefined(obj) {
 
 function startMessage(senderID) {
     let user = usersMap.get(senderID)
-    if (isDefined(user.first_name)) {
+    if (isDefined(user)) {
         sendTextMessage(senderID, "Bonjour " + user.first_name + "! Que puis-je faire pour toi?");
     } else {
         sendTextMessage(senderID, "Je ne sais pas...");
