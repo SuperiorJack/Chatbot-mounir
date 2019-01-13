@@ -876,8 +876,9 @@ function isDefined(obj) {
     return obj != null;
 }
 
-function startMessage(senderID) {
+async function startMessage(senderID) {
     var user = await getUserInfo(senderID);
+    console.log("--------------- USER ---------------", user)
     if (user.first_name) {
         sendTextMessage(senderID, "Bonjour " + user.first_name + "! Que puis-je faire pour toi?");
     } else {
@@ -885,7 +886,7 @@ function startMessage(senderID) {
     }
 }
 
-async function getUserInfo(senderID) {
+function getUserInfo(senderID) {
     request({
         uri: 'https://graph.facebook.com/v3.2/' + senderID,
         qs: {
