@@ -692,7 +692,7 @@ function callSendAPI(messageData) {
         json: messageData
 
     }, function (error, response, body) {
-        sendTypingOff(sender);
+        sendTypingOff(messageData.recipient.id);
         if (!error && response.statusCode == 200) {
             var recipientId = body.recipient_id;
             var messageId = body.message_id;
