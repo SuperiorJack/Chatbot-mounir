@@ -882,7 +882,7 @@ async function startMessage(senderID) {
     } catch (e) {
         console.log("Get user error!", e)
     }
-    console.log("--------------- USER ---------------", user)
+    console.log("--------------- USER2 ---------------", user)
     if (user.first_name) {
         sendTextMessage(senderID, "Bonjour " + user.first_name + "! Que puis-je faire pour toi?");
     } else {
@@ -900,6 +900,7 @@ function getUserInfo(senderID) {
     }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var user = JSON.parse(body);
+            console.log("--------------- USER ---------------", user)
             return user;
         } else {
             console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
