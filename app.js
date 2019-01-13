@@ -864,32 +864,24 @@ function isDefined(obj) {
 
 function startMessage(senderID) {
     let user = usersMap.get(senderID)
-    sendTextMessage(senderID, "Bonjour " + user.first_name + "! Que puis-je faire pour toi?");
+    if (isDefined(user.first_name)) {
+        sendTextMessage(senderID, "Bonjour " + user.first_name + "! Que puis-je faire pour toi?");
+    } else {
+        sendTextMessage(senderID, "Je ne sais pas...");
+    }
     //sendTextMessage(senderID, "Bienvenue! Que puis-je faire pour vous?");
 }
 
 function sendUserInfo(senderID) {
-    request({
-        uri: 'https://graph.facebook.com/v3.2/' + senderID,
-        qs: {
-            access_token: config.FB_PAGE_TOKEN
+    let user = usersMap.get(senderID)
+    if (user.first_name) {
+        sendTextMessage(senderID, "Tu t'appelles " + user.first_name + " " + user.last_name + ".");
+        if (isDefined(user.profile_pic)) {
+            sendImageMessage(senderID, user.profile_pic)
         }
-
-    }, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            var user = JSON.parse(body);
-            if (user.first_name) {
-                sendTextMessage(senderID, "Tu t'appelles " + user.first_name + " " + user.last_name + ".");
-                if (isDefined(user.profile_pic)) {
-                    sendImageMessage(senderID, user.profile_pic)
-                }
-            } else {
-                sendTextMessage(senderID, "Je ne sais pas...");
-            }
-        } else {
-            console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
-        }
-    });
+    } else {
+        sendTextMessage(senderID, "Je ne sais pas...");
+    }
 }
 
 // Spin up the server
