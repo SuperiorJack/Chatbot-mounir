@@ -917,4 +917,31 @@ app.listen(app.get('port'), function () {
         "payload":"START"
         }
     }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAARQjccneVkBAIKjDLHqhTV46OnsJrlxEwzRQh3j6PVo6AIzj5MZBIqpc6cZAW31N9zrqzyAu7aZAMoHz44ZCIIJnjQ0ZC7LMLyT6bUbdZBSYrnSpWgggKlRgjOvziJPJa5Jnlz6ZATZCZCV8ZAlSzDYuzx90Q2MlprZADasuZBwEjOMjf33IY2aLIblpP24jqfA9WUZD"
+
+    curl -X POST -H "Content-Type: application/json" -d '{ 
+        "persistent_menu":[
+            {
+                "locale":"default",
+                "composer_input_disabled":"false",
+                "call_to_actions":[
+                    {
+                        "title":"Contacte",
+                        "type":"nested",
+                        "call_to_actions":[
+                            {
+                                "title":"Site Web",
+                                "type":"web_url",
+                                "url":"https://chat-bot-mounir.herokuapp.com/"   
+                            }
+                        ]
+                    },
+                    {
+                        "title":"Demarrer",
+                        "type":"postback",
+                        "payload": "START"   
+                    }
+                ]
+            }
+        ]
+    }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=EAARQjccneVkBAIKjDLHqhTV46OnsJrlxEwzRQh3j6PVo6AIzj5MZBIqpc6cZAW31N9zrqzyAu7aZAMoHz44ZCIIJnjQ0ZC7LMLyT6bUbdZBSYrnSpWgggKlRgjOvziJPJa5Jnlz6ZATZCZCV8ZAlSzDYuzx90Q2MlprZADasuZBwEjOMjf33IY2aLIblpP24jqfA9WUZD"
 */

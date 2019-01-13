@@ -18,7 +18,7 @@ module.exports = {
                             console.log(err);
                             callback("");
                         } else {
-                            console.log("--------------- RESULT ---------------", result)
+                            console.log("--------------- RESULT ---------------", result.rows)
                             if (result.rows.length > 0) {
                                 callback(result.rows[0]['color']);
                             } else {
