@@ -207,8 +207,8 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
     switch (action) {
         case "show-video":
             sendTypingOn(sender);
+            handleMessages(messages, sender);
             sendVideoMessage(sender, "/assets/allofus480.mov");
-            sendTypingOff(sender)
             break;
         case "reservation.reservation-yes.reservation-yes-custom":
             console.log("--------------- CONTEXTS ---------------", contexts[0].parameters.fields, "--------------- PARAMETERS ---------------", parameters);
@@ -692,6 +692,7 @@ function callSendAPI(messageData) {
         json: messageData
 
     }, function (error, response, body) {
+        sendTypingOff(sender);
         if (!error && response.statusCode == 200) {
             var recipientId = body.recipient_id;
             var messageId = body.message_id;
