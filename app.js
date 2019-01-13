@@ -876,7 +876,7 @@ function isDefined(obj) {
     return obj != null;
 }
 
-function startMessage(userId) {
+function startMessage(senderID) {
     request({
         uri: 'https://graph.facebook.com/v3.2/' + userId,
         qs: {
