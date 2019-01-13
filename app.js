@@ -207,7 +207,7 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
     switch (action) {
         case "show-video":
             handleMessages(messages, sender);
-            setTimeout(sendTypingOn(sender), 2000);
+            setTimeout(sendTypingOn.bind(null, sender), 2000);
             sendVideoMessage(sender, "/assets/allofus480.mov");
             break;
         case "reservation.reservation-yes.reservation-yes-custom":
