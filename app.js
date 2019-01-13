@@ -203,15 +203,20 @@ function handleEcho(messageId, appId, metadata) {
 }
 
 function handleDialogFlowAction(sender, action, messages, contexts, parameters) {
-    console.log("--------------- ACTION ---------------", action)
+    console.log("--------------- ACTION ---------------", action);
     switch (action) {
         case "show-video":
+            sendTypingOn(sender);
             sendVideoMessage(sender, "/assets/allofus480.mov");
+            sendTypingOff(sender)
+            break;
         case "reservation.reservation-yes.reservation-yes-custom":
-            console.log("--------------- CONTEXTS ---------------", contexts[0].parameters.fields, "--------------- PARAMETERS ---------------", parameters)
+            console.log("--------------- CONTEXTS ---------------", contexts[0].parameters.fields, "--------------- PARAMETERS ---------------", parameters);
+            handleMessages(messages, sender);
             if (isDefined(contexts[0]) && contexts[0].name == "reservation-yes-followup" && contexts[0].parameters) {
-                console.log("--------------- FILTER WORKING ---------------")
+                console.log("--------------- FILTER WORKING ---------------");
             }
+            break;
         default:
             //unhandled action, just send back the text
             handleMessages(messages, sender);
