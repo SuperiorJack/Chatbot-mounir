@@ -217,6 +217,9 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
             }
             handleMessages(messages, sender);
             break;
+        case "user-info":
+            sendUserInfo(sender)
+            break;
         default:
             //unhandled action, just send back the text
             handleMessages(messages, sender);
@@ -876,21 +879,7 @@ function isDefined(obj) {
     return obj != null;
 }
 
-async function startMessage(senderID) {
-    try {
-        var user = await getUserInfo(senderID);
-    } catch (e) {
-        console.log("Get user error!", e)
-    }
-    console.log("--------------- USER2 ---------------", user)
-    if (user.first_name) {
-        sendTextMessage(senderID, "Bonjour " + user.first_name + "! Que puis-je faire pour toi?");
-    } else {
-        sendTextMessage(senderID, "Bienvenue! Que puis-je faire pour vous?");
-    }
-}
-
-function getUserInfo(senderID) {
+function startMessage(senderID) {
     request({
         uri: 'https://graph.facebook.com/v3.2/' + senderID,
         qs: {
@@ -900,11 +889,37 @@ function getUserInfo(senderID) {
     }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var user = JSON.parse(body);
-            console.log("--------------- USER ---------------", user)
-            return user;
+            if (user.first_name) {
+                sendTextMessage(senderID, "Bonjour " + user.first_name + "! Que puis-je faire pour toi?");
+            } else {
+                sendTextMessage(senderID, "Bienvenue! Que puis-je faire pour vous?");
+            }
         } else {
             console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
-            return error;
+        }
+    });
+}
+
+function sendUserInfo(senderID) {
+    request({
+        uri: 'https://graph.facebook.com/v3.2/' + senderID,
+        qs: {
+            access_token: config.FB_PAGE_TOKEN
+        }
+
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var user = JSON.parse(body);
+            if (user.first_name) {
+                sendTextMessage(senderID, "Tu t'appelles " + user.first_name + " " + user.last_name + ".");
+                if (isDefined(user.profile_pic)) {
+                    sendImageMessage(senderID, user.profile_pic)
+                }
+            } else {
+                sendTextMessage(senderID, "Je ne sais pas...");
+            }
+        } else {
+            console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
         }
     });
 }
