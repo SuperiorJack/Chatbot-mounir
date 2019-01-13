@@ -206,10 +206,9 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
     console.log("--------------- ACTION ---------------", action);
     switch (action) {
         case "show-video":
+            handleMessages(messages, sender);
             sendTypingOn(sender);
             sendVideoMessage(sender, "/assets/allofus480.mov");
-            console.log("--------------- MESSAGES ---------------", messages);
-            handleMessages(messages, sender);
             break;
         case "reservation.reservation-yes.reservation-yes-custom":
             console.log("--------------- CONTEXTS ---------------", contexts[0].parameters.fields, "--------------- PARAMETERS ---------------", parameters);
