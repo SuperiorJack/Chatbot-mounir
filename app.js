@@ -207,12 +207,10 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
     switch (action) {
         case "show-video":
             sendTypingOn(sender);
-            handleMessages(messages, sender);
             sendVideoMessage(sender, "/assets/allofus480.mov");
             break;
         case "reservation.reservation-yes.reservation-yes-custom":
             console.log("--------------- CONTEXTS ---------------", contexts[0].parameters.fields, "--------------- PARAMETERS ---------------", parameters);
-            handleMessages(messages, sender);
             if (isDefined(contexts[0]) && contexts[0].name == "reservation-yes-followup" && contexts[0].parameters) {
                 console.log("--------------- FILTER WORKING ---------------");
             }
