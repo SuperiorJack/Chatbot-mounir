@@ -1,15 +1,16 @@
 'use strict';
 
+const app = express();
 const dialogflow = require('dialogflow');
-const config = require('./config');
 const pg = require('pg');
 const express = require('express');
 const crypto = require('crypto');
 const bodyParser = require('body-parser');
 const request = require('request');
-const app = express();
 const uuid = require('uuid');
+const config = require('./config');
 const userData = require('./user');
+const colors = require('./color');
 
 pg.defaults.ssl = true;
 
@@ -188,6 +189,10 @@ function handleEcho(messageId, appId, metadata) {
 function handleDialogFlowAction(sender, action, messages, contexts, parameters) {
     console.log("--------------- ACTION ---------------", action);
     switch (action) {
+        case "favorite-color":
+            handleMessages(messages, sender);
+            colors.updateUserColor(parameters['color'], sender);
+            break;
         case "show-video":
             handleMessages(messages, sender);
             setTimeout(sendTypingOn.bind(null, sender), 2000);
