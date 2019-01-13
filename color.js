@@ -34,28 +34,26 @@ module.exports = {
             if (err) {
                 return console.error('Error acquiring client', err.stack);
             }
-
-            let sql1 = `SELECT color FROM public.color WHERE fb_id='${userId}' LIMIT 1`;
-            client
-                .query(sql1,
-                    function (err, result) {
-                        if (err) {
-                            console.log('Query error: ' + err);
+            client.query(`SELECT color FROM color WHERE fb_id='${userId}' LIMIT 1`,
+                function (err, result) {
+                    console.log('Query result: ' + result);
+                    if (err) {
+                        console.log('Query error: ' + err);
+                    } else {
+                        let sql;
+                        if (result.rows.length === 0) {
+                            sql = 'INSERT INTO public.color (color, fb_id) VALUES ($1, $2)';
                         } else {
-                            let sql;
-                            if (result.rows.length === 0) {
-                                sql = 'INSERT INTO public.color (color, fb_id) VALUES ($1, $2)';
-                            } else {
-                                sql = 'UPDATE public.color SET color=$1 WHERE fb_id=$2';
-                            }
-                            client.query(sql,
-                                [
-                                    color,
-                                    userId
-                                ]);
+                            sql = 'UPDATE public.color SET color=$1 WHERE fb_id=$2';
                         }
+                        client.query(sql,
+                            [
+                                color,
+                                userId
+                            ]);
                     }
-                );
+                }
+            );
 
             done();
         });
