@@ -1,9 +1,9 @@
 'use strict';
 
-const app = express();
 const dialogflow = require('dialogflow');
 const pg = require('pg');
 const express = require('express');
+const app = express();
 const crypto = require('crypto');
 const bodyParser = require('body-parser');
 const request = require('request');
