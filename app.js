@@ -199,7 +199,7 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
             break;
         case "my-favorite-color":
             colors.readUserColor(function (color) {
-                if (color != undefined || color != "") {
+                if (color != "") {
                     var text = "Ta couleur prefere est le " + color + "."
                 } else {
                     var text = "Je ne connais pas ta couleur prefere."

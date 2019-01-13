@@ -16,10 +16,14 @@ module.exports = {
                     function (err, result) {
                         if (err) {
                             console.log(err);
-                            callback('');
+                            callback("");
                         } else {
                             console.log("--------------- RESULT ---------------", result)
-                            callback(result.rows[0]['color']);
+                            if (result.rows.length > 0) {
+                                callback(result.rows[0]['color']);
+                            } else {
+                                callback("");
+                            }
                         };
                     });
         });
