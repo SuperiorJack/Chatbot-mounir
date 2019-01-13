@@ -878,7 +878,7 @@ function isDefined(obj) {
 
 function startMessage(senderID) {
     request({
-        uri: 'https://graph.facebook.com/v3.2/' + userId,
+        uri: 'https://graph.facebook.com/v3.2/' + senderID,
         qs: {
             access_token: config.FB_PAGE_TOKEN
         }
