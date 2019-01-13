@@ -863,13 +863,13 @@ function isDefined(obj) {
 }
 
 function startMessage(senderID) {
-    let user = usersMap.get(senderID)
     sendTypingOn(senderID);
     setTimeout(function () {
+        let user = usersMap.get(senderID)
         if (isDefined(user)) {
             sendTextMessage(senderID, "Bonjour " + user.first_name + "! Que puis-je faire pour toi?");
         } else {
-            sendTextMessage(senderID, "Je ne sais pas...");
+            sendTextMessage(senderID, "Bonjour, que puis-je faire pour vous?");
         }
     }, 2500);
 }
