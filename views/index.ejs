@@ -18,6 +18,20 @@
             <h2>Hello World!</h2>
             <img src="../assets/robot_face.png">
         </div>
+        <!-- Load Facebook SDK for JavaScript -->
+        <div id="fb-root"></div>
+        <script>(function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = 'https://connect.facebook.net/fr_FR/sdk/xfbml.customerchat.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+
+        <!-- Your customer chat code -->
+        <div class="fb-customerchat" attribution=setup_tool page_id="2085832511454336" theme_color="#13cf13"
+            logged_in_greeting="Bonjour comment puis-je vous aider?" logged_out_greeting="Bonjour comment puis-je vous aider?">
+        </div>
     </main>
 
     <footer>
