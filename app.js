@@ -191,6 +191,7 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
     switch (action) {
         case "favorite-color":
             handleMessages(messages, sender);
+            console.log("--------------- CONTEXTS ---------------", contexts[0].parameters.fields, "--------------- PARAMETERS ---------------", parameters);
             colors.updateUserColor(parameters['color'], sender);
             break;
         case "show-video":
