@@ -23,7 +23,7 @@ module.exports = function (callback, senderID) {
                     console.log('fetching user');
                     client.query(`SELECT id FROM users WHERE fb_id='${senderID}' LIMIT 1`,
                         function (err, result) {
-                            console.log('Query result: ' + result);
+                            console.log('query result ' + result);
                             if (err) {
                                 console.log('Query error: ' + err);
                             } else {
@@ -45,7 +45,6 @@ module.exports = function (callback, senderID) {
                             }
                         });
                     callback(user)
-                    done();
                 });
                 pool.end();
             }

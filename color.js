@@ -54,8 +54,6 @@ module.exports = {
                     }
                 }
             );
-
-            done();
         });
         pool.end();
     }
