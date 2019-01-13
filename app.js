@@ -206,6 +206,7 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
     console.log("--------------- ACTION ---------------", action);
     switch (action) {
         case "show-video":
+            sendTypingOn(sender);
             sendVideoMessage(sender, "/assets/allofus480.mov");
             console.log("--------------- MESSAGES ---------------", messages);
             handleMessages(messages, sender);
@@ -215,6 +216,7 @@ function handleDialogFlowAction(sender, action, messages, contexts, parameters) 
             if (isDefined(contexts[0]) && contexts[0].name == "reservation-yes-followup" && contexts[0].parameters) {
                 console.log("--------------- FILTER WORKING ---------------");
             }
+            handleMessages(messages, sender);
             break;
         default:
             //unhandled action, just send back the text
