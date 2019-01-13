@@ -869,9 +869,8 @@ function startMessage(senderID) {
                     if (err) {
                         return console.error('Error acquiring client', err.stack);
                     }
-                    var rows = [];
                     console.log('fetching user');
-                    client.query(`SELECT id FROM users WHERE fb_id='${userId}' LIMIT 1`,
+                    client.query(`SELECT id FROM users WHERE fb_id='${senderID}' LIMIT 1`,
                         function (err, result) {
                             console.log('query result ' + result);
                             if (err) {
@@ -884,7 +883,7 @@ function startMessage(senderID) {
                                     console.log('sql: ' + sql);
                                     client.query(sql,
                                         [
-                                            userId,
+                                            senderID,
                                             user.first_name,
                                             user.last_name,
                                             user.profile_pic,
