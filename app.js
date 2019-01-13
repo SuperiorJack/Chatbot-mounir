@@ -885,9 +885,8 @@ function startMessage(senderID) {
 
     }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log("--------------- BODY ---------------", body)
-            var first_name = body.first_name;
-            if (first_name) {
+            console.log("--------------- BODY ---------------", body, body.first_name)
+            if (body.first_name) {
                 sendTextMessage(senderID, "Bonjour " + first_name + "! Que puis-je faire pour toi?");
             } else {
                 sendTextMessage(senderID, "Bienvenue! Que puis-je faire pour vous?");
