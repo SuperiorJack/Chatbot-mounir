@@ -728,8 +728,8 @@ function receivedPostback(event) {
     var payload = event.postback.payload;
 
     switch (payload) {
-        case "START_PAYL":
-            sendTextMessage(senderID, "Bienvenue! Que puis-je faire pour vous?");
+        case "START":
+            startMessage(senderID);
             break;
         default:
             //unindentified payload
@@ -874,6 +874,27 @@ function isDefined(obj) {
     }
 
     return obj != null;
+}
+
+function startMessage(userId) {
+    request({
+        uri: 'https://graph.facebook.com/v3.2/' + userId,
+        qs: {
+            access_token: config.FB_PAGE_TOKEN
+        }
+
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var first_name = body.first_name;
+            if (first_name) {
+                sendTextMessage(senderID, "Bonjour " + first_name + "! Que puis-je faire pour toi?");
+            } else {
+                sendTextMessage(senderID, "Bienvenue! Que puis-je faire pour vous?");
+            }
+        } else {
+            console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
+        }
+    });
 }
 
 // Spin up the server
